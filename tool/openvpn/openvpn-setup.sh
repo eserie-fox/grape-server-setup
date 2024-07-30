@@ -13,8 +13,17 @@ fi
 
 mkdir -p /root/openvpn
 
-cd /root/openvpn
 curl -o /root/openvpn/openvpn-install.sh https://raw.githubusercontent.com/angristan/openvpn-install/master/openvpn-install.sh
 chmod +x /root/openvpn/openvpn-install.sh
 
 sh ./headless-openvpn-install.sh $ovpn_ipv4_hostname $ovpn_ipv6_hostname $ovpn_port
+
+# 允许客户端相互看见
+echo "client-to-client" >> /etc/openvpn/server.conf
+
+# 允许客户端用一个配置文件连多个（方便）
+echo "duplicate-cn" >> /etc/openvpn/server.conf
+
+# 重启
+systemctl restart openvpn@server
+systemctl restart openvpn

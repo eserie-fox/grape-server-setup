@@ -10,5 +10,8 @@ fi
 # 直通硬盘给git
 pct set $ct_id -mp0 /mnt/HDD3T3.5inchSATA/gitea/,mp=/mnt/data
 
+# 使用以下命令取消挂载，或者直接在web ui取消挂载。
+# pct set $ct_id -mp0 none
+
 # 将所有权给该容器。在pve中有一个偏移量定义，默认为100000:100000
 chown -R 100000:100000 /mnt/HDD3T3.5inchSATA/gitea/

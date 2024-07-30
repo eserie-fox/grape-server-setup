@@ -20,6 +20,10 @@ cd ./dynv6
 sh ./dynv6-setup.sh $dynv6token $dynv6hostname
 cd ..
 
+cd ./docker
+sh docker-setup.sh
+cd ..
+
 cd ./gitea
 sh ./gitea-setup.sh $web_port $ssh_port
 cd ..

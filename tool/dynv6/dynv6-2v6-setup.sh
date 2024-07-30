@@ -1,11 +1,11 @@
 #!/bin/sh
 
-token=$1
-hostname=$2
-hostname2=$3
+dynv6token=$1
+dynv6hostname=$2
+dynv6hostname2=$3
 
-if [ -z "$token" -o -z "$hostname" -o -z "$hostname2" ]; then
-  echo "Usage: $0 token hostname hostname2"
+if [ -z "$dynv6token" -o -z "$dynv6hostname" -o -z "$dynv6hostname2" ]; then
+  echo "Usage: $0 dynv6token dynv6hostname dynv6hostname2"
   exit 1
 fi
 
@@ -13,5 +13,6 @@ fi
 mkdir -p /root/dynv6script
 rm /root/.dynv6.addr6
 cp ./dynv6-2v6only-update.sh /root/dynv6script/
-(crontab -l 2>/dev/null; echo "*/2 * * * * token=$token /root/dynv6script/dynv6-2v6only-update.sh $hostname $hostname2") | crontab -
+chmod +x /root/dynv6script/dynv6-2v6only-update.sh
+(crontab -l 2>/dev/null; echo "*/2 * * * * token=$dynv6token /root/dynv6script/dynv6-2v6only-update.sh $dynv6hostname $dynv6hostname2") | crontab -
 

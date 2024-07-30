@@ -14,13 +14,16 @@ if [ "$#" -eq 0 ]; then
 fi
 
 a2enmod dav*
+a2enmod auth_digest
 
-# TODO 新建webdav-{users}.conf 以及 webdav-root.conf，合适地修改已有文件。
-cp ./webdav-root.conf /etc/apache2/sites-available/webdav-root.conf
+# 新建webdav-{users}.conf 以及 webdav-root.conf，合适地修改已有文件。
 
-a2ensite webdav-root
+# 改名为z开头，保证它是最低优先级匹配。
+cp ./webdav-root.conf /etc/apache2/sites-available/z-webdav-root.conf
 
-for user in $users
+a2ensite z-webdav-root
+
+for user in ${users[@]}
 do
     cp ./webdav-fox.conf /etc/apache2/sites-available/webdav-${user}.conf
     # 将所有的fox替换成对应的用户名

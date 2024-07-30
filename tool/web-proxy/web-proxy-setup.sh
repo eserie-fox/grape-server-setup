@@ -12,10 +12,12 @@ if [ -z "$admin_email" -o -z "$web_hostname" -o -z "$git_server_addr" -o -z "$we
 fi
 
 
-apt -y install apache2
+apt-get -y install apache2
+apt-get -y install apache2-utils 
 a2enmod proxy_http
 a2enmod ssl
-
+a2enmod dav*
+a2enmod headers
 
 cp /etc/apache2/apache2.conf /etc/apache2/apache2.conf.bak
 
@@ -29,7 +31,7 @@ sed -i 's/^\(\s*ServerAdmin\) .*/\1 '"$admin_email"'/' /etc/apache2/sites-enable
 systemctl restart apache2
 
 # 获得证书
-apt -y install certbot
+apt-get -y install certbot
 
 certbot certonly --webroot -w /var/www/html -d $web_hostname
 
@@ -41,11 +43,11 @@ cert_file="/etc/letsencrypt/live/$web_hostname/cert.pem"
 cert_key_file="/etc/letsencrypt/live/$web_hostname/privkey.pem"
 cert_chain_file="/etc/letsencrypt/live/$web_hostname/chain.pem"
 
-sed -i 's/^\(\s*SSLCertificateFile\s\+\).*/\1'"$cert_file"'/' /etc/apache2/sites-available/default-ssl.conf
-sed -i 's/^\(\s*SSLCertificateKeyFile\s\+\).*/\1'"$cert_key_file"'/' /etc/apache2/sites-available/default-ssl.conf
+sed -i 's#^\(\s*SSLCertificateFile\s\+\).*#\1'"$cert_file"'#' /etc/apache2/sites-available/default-ssl.conf
+sed -i 's#^\(\s*SSLCertificateKeyFile\s\+\).*#\1'"$cert_key_file"'#' /etc/apache2/sites-available/default-ssl.conf
 
-sed -i 's/#\(\s*SSLCertificateChainFile\s\+.*\)/\1/' /etc/apache2/sites-available/default-ssl.conf
-sed -i 's/^\(\s*SSLCertificateChainFile\s\+\).*/\1'"$cert_chain_file"'/' /etc/apache2/sites-available/default-ssl.conf
+sed -i 's,#\(\s*SSLCertificateChainFile\s\+.*\),\1,' /etc/apache2/sites-available/default-ssl.conf
+sed -i 's,^\(\s*SSLCertificateChainFile\s\+\).*,\1'"$cert_chain_file"',' /etc/apache2/sites-available/default-ssl.conf
 
 a2ensite default-ssl
 

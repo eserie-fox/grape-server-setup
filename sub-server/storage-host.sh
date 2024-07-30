@@ -12,6 +12,10 @@ pct set $ct_id -mp0 /mnt/HDD1T2.5inchUSB/,mp=/mnt/DiskBackup1T
 # 同理
 pct set $ct_id -mp1 /mnt/HDD3T3.5inchSATA/,mp=/mnt/DiskMain3T
 
+# 使用以下命令取消挂载，或者直接在web ui取消挂载。
+# pct set $ct_id -mp0 none
+# pct set $ct_id -mp1 none
+
 #将所有者设置为容器的root。在pve中有一个偏移量定义，默认为100000:100000
 chown -R 100000:100000 /mnt/HDD1T2.5inchUSB/
 chown -R 100000:100000 /mnt/HDD3T3.5inchSATA/

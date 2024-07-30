@@ -13,12 +13,6 @@ if [ ! -f "$docker_compose_file" ]; then
     exit 1
 fi
 
-
-cd ../docker
-sh docker-setup.sh
-
-cd ../samba
-
 uid=$(id -u www-data)
 gid=$(id -g www-data)
 

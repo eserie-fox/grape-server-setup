@@ -3,11 +3,12 @@
 dynv6token=$1
 dynv6hostname=$2
 admin_email=$3
-samba_docker_compose_file=$4
-users=("${@:5}")
+web_hostname=$4
+samba_docker_compose_file=$5
+users=("${@:6}")
 
-if [ -z "$dynv6token" -o -z "$dynv6hostname" -o -z "$admin_email" -o -z "$samba_docker_compose_file" -o "${#users[@]}" -eq 0 ]; then
-  echo "Usage: $0 dynv6token dynv6hostname admin_email samba_docker_compose_file user1 [user2 [user3 ...]]"
+if [ -z "$dynv6token" -o -z "$dynv6hostname" -o -z "$admin_email" -o -z "$web_hostname" -o -z "$samba_docker_compose_file" -o "${#users[@]}" -eq 0 ]; then
+  echo "Usage: $0 dynv6token dynv6hostname admin_email web_hostname samba_docker_compose_file user1 [user2 [user3 ...]]"
   exit 1
 fi
 
@@ -23,6 +24,10 @@ cd ..
 
 cd ./dynv6
 sh ./dynv6-setup.sh $dynv6token $dynv6hostname
+cd ..
+
+cd ./docker
+sh docker-setup.sh
 cd ..
 
 cd ./samba
