@@ -1,0 +1,14 @@
+[Unit]
+Description=FRP Server Daemon
+After=network.target
+
+[Service]
+Type=simple
+AmbientCapabilities=CAP_NET_BIND_SERVICE
+ExecStart=/root/frp/frps -c /root/frp/frps.toml
+Restart=always
+RestartSec=2s
+LimitNOFILE=infinity
+
+[Install]
+WantedBy=multi-user.target
