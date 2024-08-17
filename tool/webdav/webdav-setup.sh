@@ -18,10 +18,10 @@ a2enmod auth_digest
 
 # 新建webdav-{users}.conf 以及 webdav-root.conf，合适地修改已有文件。
 
-# 改名为z开头，保证它是最低优先级匹配。
-cp ./webdav-root.conf /etc/apache2/sites-available/z-webdav-root.conf
+# 改名为a开头，保证它是最高优先级匹配。
+cp ./webdav-root.conf /etc/apache2/sites-available/a-webdav-root.conf
 
-a2ensite z-webdav-root
+a2ensite a-webdav-root
 
 for user in ${users[@]}
 do
