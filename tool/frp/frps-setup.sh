@@ -15,7 +15,7 @@ cp ./frps-update.sh /root/frp/
 cp ./frps.service.txt /root/frp/
 
 mkdir -p /root/frp/current_state
-ln -s /usr/lib/systemd/system/frps.service /root/frp/current_state/frps.service
+ln -s /etc/systemd/system/frps.service /root/frp/current_state/frps.service
 ln -s /root/frp/frps.toml /root/frp/current_state/frps.toml
 sh ./upgrade_frps.sh
 

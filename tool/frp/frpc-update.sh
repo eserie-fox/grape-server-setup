@@ -1,6 +1,6 @@
 #!/bin/sh
 
-cp /root/frp/frpc.service.txt /usr/lib/systemd/system/frpc.service
+cp /root/frp/frpc.service.txt /etc/systemd/system/frpc.service
 
 systemctl daemon-reload
 
